@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { RecipeDetail } from "../../components/RecipeDetail/RecipeDetail";
 
 export function RecipesList() {
   const [data, setData] = useState(null)
@@ -30,7 +31,7 @@ export function RecipesList() {
       <ul>
         {
           data?.recipesList?.map((recipe) => {
-            return <li key={recipe.rec_id}>{recipe.rec_name}</li>
+            return <RecipeDetail key={recipe.rec_id} name={recipe.rec_name} recId={recipe.rec_id} />
           })
         }
       </ul>
