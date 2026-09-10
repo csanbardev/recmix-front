@@ -9,6 +9,7 @@ export function Home() {
       <article>
         <Link to="/recipe-list">Lista de recetas</Link>
         <Link to="/recipe-list/add">Crear lista de recetas</Link>
+        <Link to="/recipe/add">Añadir receta</Link>
       </article>
     </section>
   )

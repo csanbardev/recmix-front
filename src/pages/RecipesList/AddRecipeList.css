@@ -4,3 +4,9 @@
   flex-direction: column;
   gap: 2px;
 }
+
+#ingredients-selected-list{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
