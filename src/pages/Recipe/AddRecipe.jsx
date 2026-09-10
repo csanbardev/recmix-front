@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 
 export function AddRecipe() {
   const [ingredients, setIngredients] = useState([{ id: "", quantity: "" }])
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, reset } = useForm()
 
   const handleAddIngredient = () => {
     setIngredients(prev => [...prev, { id: "", quantity: "" }]);
@@ -46,7 +46,9 @@ export function AddRecipe() {
         throw new Error(`Error al crear la receta. Estado: ${res.status}`)
       }
 
-      window.alert("Receta creada con éxito.")
+      window.alert("Receta creada")
+      reset()
+      setIngredients([{ id: "", quantity: "" }])
     } catch (error) {
       window.alert(error.message)
     }
