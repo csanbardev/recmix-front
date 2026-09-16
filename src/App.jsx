@@ -3,13 +3,15 @@ import { Home } from './pages/Home/Home'
 import { Ingredients } from './pages/Ingredients/Ingredients'
 import { IngredientsList } from './pages/IngredientsList/IngredientsList'
 import { RecipesList } from './pages/RecipesList/RecipesList'
-import {AddRecipeList} from './pages/RecipesList/AddRecipeList'
+import { AddRecipeList } from './pages/RecipesList/AddRecipeList'
 import { AddRecipe } from './pages/Recipe/AddRecipe'
+import { Nav } from './components/Nav/Nav'
 function App() {
 
 
   return (
     <>
+      <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/ingredients/:recId" element={<Ingredients />} />
