@@ -1,11 +1,10 @@
 
+import { Button } from "@chakra-ui/react";
+
 export function DuplicateButton({ onDuplicate, text }) {
-
-
   return (
-    <button type="button" onClick={onDuplicate}>
+    <Button type="button" onClick={onDuplicate} colorPalette="teal" variant="outline" alignSelf="flex-start">
       {text}
-    </button>
-
+    </Button>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NativeSelect } from "@chakra-ui/react";
 
 export function IngredientsCombo({ id, onChange }) {
   const [ingredients, setIngredients] = useState([]);
@@ -20,13 +21,25 @@ export function IngredientsCombo({ id, onChange }) {
   }, []);
 
   return (
-    <select id={id} defaultValue="" onChange={(event) => onChange(event.target.value)} required>
-      <option value="" disabled>Selecciona un ingrediente</option>
-      {ingredients.map((ingredient) => (
-        <option key={ingredient.ing_id} value={ingredient.ing_id}>
-          {ingredient.ing_name}
-        </option>
-      ))}
-    </select>
+    <NativeSelect.Root>
+      <NativeSelect.Field
+        id={id}
+        defaultValue=""
+        onChange={(event) => onChange(event.target.value)}
+        required
+        color="gray.100"
+        borderColor="gray.700"
+        bg="gray.900"
+        _focusVisible={{ borderColor: "teal.400", boxShadow: "0 0 0 1px var(--chakra-colors-teal-400)" }}
+      >
+        <option value="" disabled>Selecciona un ingrediente</option>
+        {ingredients.map((ingredient) => (
+          <option key={ingredient.ing_id} value={ingredient.ing_id}>
+            {ingredient.ing_name}
+          </option>
+        ))}
+      </NativeSelect.Field>
+      <NativeSelect.Indicator />
+    </NativeSelect.Root>
   );
 }
