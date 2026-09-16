@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { API_URL } from "../../config/api"
 
 export function IngredientsList() {
   const { reclFec } = useParams() // fecha de la lista de recetas
@@ -10,7 +11,7 @@ export function IngredientsList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`http://localhost:3006/ingredients-list/${reclFec}`)
+        const res = await fetch(`${API_URL}/ingredients-list/${reclFec}`)
         
         if (!res.ok) {
           throw new Error("Error al obtener ingredientes de la lista" + res.message);

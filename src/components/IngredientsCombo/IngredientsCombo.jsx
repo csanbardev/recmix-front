@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NativeSelect } from "@chakra-ui/react";
+import { API_URL } from "../../config/api";
 
 export function IngredientsCombo({ id, onChange }) {
   const [ingredients, setIngredients] = useState([]);
@@ -7,7 +8,7 @@ export function IngredientsCombo({ id, onChange }) {
   useEffect(() => {
     async function fetchIngredients() {
       try {
-        const response = await fetch("http://localhost:3006/ingredients");
+        const response = await fetch(`${API_URL}/ingredients`);
         if (!response.ok) {
           throw new Error(`HTTP Error! Status: ${response.status}`);
         }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { DuplicateButton } from "../../components/DuplicateButton/DuplicateButton";
 import { RecipesCombo } from "../../components/RecipesCombo/RecipesCombo";
 import { useForm } from 'react-hook-form';
+import { API_URL } from "../../config/api";
 
 
 export function AddRecipeList() {
@@ -27,7 +28,7 @@ export function AddRecipeList() {
     try {
       data.recipesList = recipes
 
-      const res = await fetch(`http://localhost:3006/recipes-list`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      const res = await fetch(`${API_URL}/recipes-list`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
 
       if (res.status === 200) {
         window.alert("Lista creada con éxito.")

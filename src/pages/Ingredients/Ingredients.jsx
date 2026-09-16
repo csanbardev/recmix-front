@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Box, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react"
 import { useParams } from "react-router-dom"
+import { API_URL } from "../../config/api"
 
 export function Ingredients() {
   const { recId } = useParams() // id de la receta
@@ -11,7 +12,7 @@ export function Ingredients() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`http://localhost:3006/ingredients-list-by-recipe/${recId}`)
+        const res = await fetch(`${API_URL}/ingredients-list-by-recipe/${recId}`)
         
         if (!res.ok) {
           throw new Error("Error al obtener ingredientes de la lista" + res.message);

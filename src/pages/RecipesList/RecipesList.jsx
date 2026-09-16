@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Container, Heading, SimpleGrid } from "@chakra-ui/react";
 import { RecipeDetail } from "../../components/RecipeDetail/RecipeDetail";
+import { API_URL } from "../../config/api";
 
 export function RecipesList() {
   const [data, setData] = useState(null)
@@ -10,7 +11,7 @@ export function RecipesList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`http://localhost:3006/recipes-list`)
+        const res = await fetch(`${API_URL}/recipes-list`)
 
         if (!res.ok) {
           throw new Error("Error al obtener recetas de la lista" + res.message);

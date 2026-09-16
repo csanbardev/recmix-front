@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NativeSelect } from "@chakra-ui/react";
+import { API_URL } from "../../config/api";
 
 
 export function RecipesCombo({ id, onChange }) {
@@ -11,7 +12,7 @@ export function RecipesCombo({ id, onChange }) {
     // Define una función asincrónica para hacer la llamada a la API.
     async function fetchData() {
       try {
-        const response = await fetch(`http://localhost:3006/recipes`);
+        const response = await fetch(`${API_URL}/recipes`);
         if (!response.ok) {
           throw new Error(`HTTP Error! Status: ${response.status}`);
         }
