@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Box, Container, Heading, SimpleGrid } from "@chakra-ui/react";
 import { RecipeDetail } from "../../components/RecipeDetail/RecipeDetail";
 
 export function RecipesList() {
@@ -17,7 +18,6 @@ export function RecipesList() {
 
         const jsonData = await res.json();
 
-        console.log(jsonData)
         setData(jsonData);
       } catch (error) {
         window.alert(error.message)
@@ -27,14 +27,25 @@ export function RecipesList() {
   }, [])
 
   return (
-    <section>
-      <ul>
-        {
-          data?.recipesList?.map((recipe) => {
-            return <RecipeDetail key={recipe.rec_id} name={recipe.rec_name} recId={recipe.rec_id} />
-          })
-        }
-      </ul>
-    </section>
+    <Box as="main" flex="1" bg="gray.950" py={{ base: 10, md: 16 }}>
+      <Container maxW="6xl" px={{ base: 5, md: 8 }}>
+        <Heading size="xl" color="gray.100" mb={8}>Lista de recetas</Heading>
+
+        <SimpleGrid
+          as="ul"
+          columns={{ base: 1, md: 2 }}
+          gap={4}
+          listStyleType="none"
+          m={0}
+          p={0}
+        >
+          {data?.recipesList?.map((recipe) => (
+            <Box as="li" key={recipe.rec_id}>
+              <RecipeDetail name={recipe.rec_name} recId={recipe.rec_id} />
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Container>
+    </Box>
   )
 }
