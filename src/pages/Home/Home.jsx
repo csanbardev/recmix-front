@@ -1,16 +1,80 @@
-import { Link } from "react-router-dom";
-import { AddRecipeList } from "../RecipesList/AddRecipeList";
-import { RecipesList } from "../RecipesList/RecipesList";
-
+import { Box, Container, Heading, Link as ChakraLink, Text, VStack } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 
 export function Home() {
   return (
-    <section>
-      <article>
-        <Link to="/recipe-list">Lista de recetas</Link>
-        <Link to="/recipe-list/add">Crear lista de recetas</Link>
-        <Link to="/recipe/add">Añadir receta</Link>
-      </article>
-    </section>
+    <Box as="main" flex="1" bg="gray.50" py={{ base: 10, md: 16 }}>
+      <Container maxW="lg" px={{ base: 5, md: 8 }}>
+        <VStack align="stretch" gap={2} mb={8}>
+          <Heading size="2xl" color="gray.800">¿Qué quieres preparar?</Heading>
+          <Text color="gray.600" fontSize="lg">
+            Organiza tus recetas y crea listas para cocinar sin complicaciones.
+          </Text>
+        </VStack>
+
+        <VStack as="ul" align="stretch" gap={3} listStyleType="none" p={0}>
+          <Box as="li">
+            <ChakraLink
+              asChild
+              display="block"
+              px={6}
+              py={5}
+              borderWidth="1px"
+              borderColor="gray.200"
+              borderRadius="lg"
+              bg="white"
+              color="gray.800"
+              fontSize="lg"
+              fontWeight="semibold"
+              boxShadow="sm"
+              _hover={{ borderColor: "teal.400", color: "teal.700", textDecoration: "none", transform: "translateY(-1px)" }}
+              transition="all 0.2s"
+            >
+              <RouterLink to="/recipe-list">Lista de recetas</RouterLink>
+            </ChakraLink>
+          </Box>
+          <Box as="li">
+            <ChakraLink
+              asChild
+              display="block"
+              px={6}
+              py={5}
+              borderWidth="1px"
+              borderColor="gray.200"
+              borderRadius="lg"
+              bg="white"
+              color="gray.800"
+              fontSize="lg"
+              fontWeight="semibold"
+              boxShadow="sm"
+              _hover={{ borderColor: "teal.400", color: "teal.700", textDecoration: "none", transform: "translateY(-1px)" }}
+              transition="all 0.2s"
+            >
+              <RouterLink to="/recipe-list/add">Crear lista de recetas</RouterLink>
+            </ChakraLink>
+          </Box>
+          <Box as="li">
+            <ChakraLink
+              asChild
+              display="block"
+              px={6}
+              py={5}
+              borderWidth="1px"
+              borderColor="gray.200"
+              borderRadius="lg"
+              bg="white"
+              color="gray.800"
+              fontSize="lg"
+              fontWeight="semibold"
+              boxShadow="sm"
+              _hover={{ borderColor: "teal.400", color: "teal.700", textDecoration: "none", transform: "translateY(-1px)" }}
+              transition="all 0.2s"
+            >
+              <RouterLink to="/recipe/add">Añadir receta</RouterLink>
+            </ChakraLink>
+          </Box>
+        </VStack>
+      </Container>
+    </Box>
   )
 }
