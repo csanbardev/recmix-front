@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NativeSelect } from "@chakra-ui/react";
 
 
 export function RecipesCombo({ id, onChange }) {
@@ -26,12 +27,23 @@ export function RecipesCombo({ id, onChange }) {
   }, []);
 
   return (
-    <>
-      <select id={id} onChange={(e) => onChange(e.target.value)}>
+    <NativeSelect.Root>
+      <NativeSelect.Field
+        id={id}
+        defaultValue=""
+        onChange={(event) => onChange(event.target.value)}
+        required
+        color="gray.100"
+        borderColor="gray.700"
+        bg="gray.900"
+        _focusVisible={{ borderColor: "teal.400", boxShadow: "0 0 0 1px var(--chakra-colors-teal-400)" }}
+      >
+        <option value="" disabled>Selecciona una receta</option>
         {data?.map((item) => (
-          <option key={item.rec_id} value={item.rec_id} >{item.rec_name}</option>
+          <option key={item.rec_id} value={item.rec_id}>{item.rec_name}</option>
         ))}
-      </select>
-    </>
+      </NativeSelect.Field>
+      <NativeSelect.Indicator />
+    </NativeSelect.Root>
   )
 }

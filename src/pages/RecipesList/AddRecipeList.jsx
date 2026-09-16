@@ -1,9 +1,7 @@
-import './AddRecipeList.css'
-
+import { Box, Button, Container, Heading, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { DuplicateButton } from "../../components/DuplicateButton/DuplicateButton";
 import { RecipesCombo } from "../../components/RecipesCombo/RecipesCombo";
-import { SaveButton } from '../../components/SaveButton/SaveButton';
 import { useForm } from 'react-hook-form';
 
 
@@ -16,6 +14,7 @@ export function AddRecipeList() {
     setRecipesSelect(prev => {
       return prev + 1;
     });
+    setRecipes(prev => [...prev, ""]);
   };
 
   const handleChangeRecipe = (index, value) => {
@@ -24,20 +23,9 @@ export function AddRecipeList() {
     setRecipes(newRecipes);
   };
 
-  const processRecipes = async () => {
-    const recipesContainer = document.querySelector('#recipes-selected-list')
-    const selects = recipesContainer.querySelectorAll('select') // Obtener todos los selects
-    console.log(selects)
-    const recipes = Array.from(selects).map(select => select.value) // Convertir a array y obtener valores
-
-    return recipes
-  }
-
-
   const onSubmit = async (data) => {
     try {
-      let recipesList = await processRecipes() // get recipes selected by user
-      data.recipesList = recipesList
+      data.recipesList = recipes
 
       const res = await fetch(`http://localhost:3006/recipes-list`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
 
@@ -55,19 +43,36 @@ export function AddRecipeList() {
   }
 
   return (
-    <section>
-      <h2>Generar lista de recetas</h2>
-      <form onSubmit={handleSubmit(onSubmit)} >
-        <label htmlFor="">Receta:
-          <div id="recipes-selected-list">
-            {Array.from({ length: recipesSelect }).map((_, index) => (
-              <RecipesCombo key={index} id={`recipes-select-${index}`} onChange={handleChangeRecipe} />
-            ))}
-          </div>
-          <DuplicateButton text="Añadir otra recetas" onDuplicate={handleAddRecipe} />
-          <button type='submit'>Enviar</button>
-        </label>
-      </form>
-    </section>
+    <Box as="main" flex="1" bg="gray.950" py={{ base: 10, md: 16 }}>
+      <Container maxW="3xl" px={{ base: 5, md: 8 }}>
+        <VStack align="stretch" gap={8}>
+          <Heading size="xl" color="gray.100">Generar lista de recetas</Heading>
+
+          <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+            <VStack align="stretch" gap={6}>
+              <Box as="section" id="recipes-selected-list">
+                <Text as="h2" color="gray.100" fontSize="lg" fontWeight="semibold" mb={3}>
+                  Recetas
+                </Text>
+                <VStack align="stretch" gap={3}>
+                  {Array.from({ length: recipesSelect }).map((_, index) => (
+                    <RecipesCombo
+                      key={index}
+                      id={`recipes-select-${index}`}
+                      onChange={(value) => handleChangeRecipe(index, value)}
+                    />
+                  ))}
+                </VStack>
+              </Box>
+
+              <DuplicateButton text="Añadir otra receta" onDuplicate={handleAddRecipe} />
+              <Button type="submit" colorPalette="teal" alignSelf="flex-start" px={8}>
+                Enviar
+              </Button>
+            </VStack>
+          </Box>
+        </VStack>
+      </Container>
+    </Box>
   )
 }
