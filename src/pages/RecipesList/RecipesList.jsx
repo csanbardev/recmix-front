@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Box, Container, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Heading, SimpleGrid } from "@chakra-ui/react";
 import { RecipeDetail } from "../../components/RecipeDetail/RecipeDetail";
 import { API_URL } from "../../config/api";
+import { Link as RouterLink } from "react-router-dom";
 
 export function RecipesList() {
   const [data, setData] = useState(null)
@@ -30,7 +31,19 @@ export function RecipesList() {
   return (
     <Box as="main" flex="1" bg="gray.950" py={{ base: 10, md: 16 }}>
       <Container maxW="6xl" px={{ base: 5, md: 8 }}>
-        <Heading size="xl" color="gray.100" mb={8}>Lista de recetas</Heading>
+        <Flex align="center" justify="space-between" gap={4} mb={8}>
+          <Heading size="xl" color="gray.100">Lista de recetas</Heading>
+          <Button
+            asChild
+            colorPalette="teal"
+            variant="outline"
+            disabled={!data?.recl_fec}
+          >
+            <RouterLink to={`/ingredients/list/${data?.recl_fec ?? ""}`}>
+              Ver total de ingredientes
+            </RouterLink>
+          </Button>
+        </Flex>
 
         <SimpleGrid
           as="ul"
