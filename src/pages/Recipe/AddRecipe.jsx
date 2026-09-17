@@ -28,6 +28,11 @@ export function AddRecipe() {
 
   const onSubmit = async ({ rec_name }) => {
     try {
+      if (ingredients.some(({ id }) => !id)) {
+        window.alert("Selecciona un ingrediente válido antes de guardar la receta.")
+        return
+      }
+
       const data = {
         rec_name,
         ingredients: ingredients.map(({ id, quantity }) => ({
