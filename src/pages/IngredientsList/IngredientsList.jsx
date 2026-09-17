@@ -2,10 +2,12 @@ import { useEffect, useState } from "react"
 import { Box, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react"
 import { useParams } from "react-router-dom"
 import { API_URL } from "../../config/api"
+import { useAlert } from "../../components/common/AlertContext/AlertContext.js"
 
 export function IngredientsList() {
   const { reclFec } = useParams() // fecha de la lista de recetas
   const [data, setData] = useState(null)
+  const { showAlert } = useAlert()
 
   
 
@@ -22,11 +24,11 @@ export function IngredientsList() {
 
         setData(jsonData);
       } catch (error) {
-        window.alert(error.message)
+        showAlert({ title: "No se pudieron cargar los ingredientes", description: error.message, status: "error" })
       }
     }
     fetchData()
-  },[reclFec])
+  }, [reclFec, showAlert])
 
   return (
     <Box as="main" flex="1" bg="gray.950" py={{ base: 10, md: 16 }}>

@@ -4,11 +4,13 @@ import { DuplicateButton } from "../../components/DuplicateButton/DuplicateButto
 import { IngredientsCombo } from "../../components/IngredientsCombo/IngredientsCombo";
 import { useForm } from 'react-hook-form';
 import { API_URL } from "../../config/api";
+import { useAlert } from "../../components/common/AlertContext/AlertContext.js";
 
 
 export function AddRecipe() {
   const [ingredients, setIngredients] = useState([{ id: "", quantity: "" }])
   const { register, handleSubmit, reset } = useForm()
+  const { showAlert } = useAlert()
 
   const handleAddIngredient = () => {
     setIngredients(prev => [...prev, { id: "", quantity: "" }]);
@@ -29,7 +31,7 @@ export function AddRecipe() {
   const onSubmit = async ({ rec_name }) => {
     try {
       if (ingredients.some(({ id }) => !id)) {
-        window.alert("Selecciona un ingrediente válido antes de guardar la receta.")
+        showAlert({ title: "Ingrediente no seleccionado", description: "Selecciona un ingrediente válido antes de guardar la receta.", status: "error" })
         return
       }
 
@@ -51,11 +53,11 @@ export function AddRecipe() {
         throw new Error(`Error al crear la receta. Estado: ${res.status}`)
       }
 
-      window.alert("Receta creada")
+      showAlert({ title: "Receta creada", description: "La receta se ha guardado correctamente.", status: "success" })
       reset()
       setIngredients([{ id: "", quantity: "" }])
     } catch (error) {
-      window.alert(error.message)
+      showAlert({ title: "No se pudo crear la receta", description: error.message, status: "error" })
     }
   }
 

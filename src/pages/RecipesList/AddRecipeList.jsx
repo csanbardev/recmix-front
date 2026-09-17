@@ -4,12 +4,14 @@ import { DuplicateButton } from "../../components/DuplicateButton/DuplicateButto
 import { RecipesCombo } from "../../components/RecipesCombo/RecipesCombo";
 import { useForm } from 'react-hook-form';
 import { API_URL } from "../../config/api";
+import { useAlert } from "../../components/common/AlertContext/AlertContext.js";
 
 
 export function AddRecipeList() {
   const [recipesSelect, setRecipesSelect] = useState(1)
   const [recipes, setRecipes] = useState([""]);
   const { handleSubmit } = useForm()
+  const { showAlert } = useAlert()
 
   const handleAddRecipe = () => {
     setRecipesSelect(prev => {
@@ -31,7 +33,7 @@ export function AddRecipeList() {
       const res = await fetch(`${API_URL}/recipes-list`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
 
       if (res.status === 200) {
-        window.alert("Lista creada con éxito.")
+        showAlert({ title: "Lista creada", description: "La lista se ha creado con éxito.", status: "success" })
       }
 
       if (res.status === 500) {
@@ -39,7 +41,7 @@ export function AddRecipeList() {
       }
     } catch (error) {
 
-      window.alert(error.message)
+      showAlert({ title: "No se pudo crear la lista", description: error.message, status: "error" })
     }
   }
 

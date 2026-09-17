@@ -4,12 +4,15 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react'
+import { AlertProvider } from './components/common/AlertContext/AlertProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ChakraProvider value={defaultSystem}>
       <BrowserRouter>
-        <App />
+        <AlertProvider>
+          <App />
+        </AlertProvider>
       </BrowserRouter>
     </ChakraProvider>
   </StrictMode >,

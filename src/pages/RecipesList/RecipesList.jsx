@@ -3,9 +3,11 @@ import { Box, Button, Container, Flex, Heading, SimpleGrid } from "@chakra-ui/re
 import { RecipeDetail } from "../../components/RecipeDetail/RecipeDetail";
 import { API_URL } from "../../config/api";
 import { Link as RouterLink } from "react-router-dom";
+import { useAlert } from "../../components/common/AlertContext/AlertContext.js";
 
 export function RecipesList() {
   const [data, setData] = useState(null)
+  const { showAlert } = useAlert()
 
 
 
@@ -22,11 +24,11 @@ export function RecipesList() {
 
         setData(jsonData);
       } catch (error) {
-        window.alert(error.message)
+        showAlert({ title: "No se pudo cargar la lista", description: error.message, status: "error" })
       }
     }
     fetchData()
-  }, [])
+  }, [showAlert])
 
   return (
     <Box as="main" flex="1" bg="gray.950" py={{ base: 10, md: 16 }}>
