@@ -8,17 +8,17 @@ import { useAlert } from "../../components/common/AlertContext/AlertContext.js";
 
 
 export function AddRecipe() {
-  const [ingredients, setIngredients] = useState([{ id: "", quantity: "" }])
+  const [ingredients, setIngredients] = useState([{ id: "", unit: "", quantity: "" }])
   const { register, handleSubmit, reset } = useForm()
   const { showAlert } = useAlert()
 
   const handleAddIngredient = () => {
-    setIngredients(prev => [...prev, { id: "", quantity: "" }]);
+    setIngredients(prev => [...prev, { id: "", unit: "", quantity: "" }]);
   }
 
-  const handleIngredientChange = (index, value) => {
+  const handleIngredientChange = (index, { id, unit }) => {
     setIngredients(prev => prev.map((ingredient, ingredientIndex) => (
-      ingredientIndex === index ? { ...ingredient, id: value } : ingredient
+      ingredientIndex === index ? { ...ingredient, id, unit } : ingredient
     )));
   }
 
@@ -55,7 +55,7 @@ export function AddRecipe() {
 
       showAlert({ title: "Receta creada", description: "La receta se ha guardado correctamente.", status: "success" })
       reset()
-      setIngredients([{ id: "", quantity: "" }])
+      setIngredients([{ id: "", unit: "", quantity: "" }])
     } catch (error) {
       showAlert({ title: "No se pudo crear la receta", description: error.message, status: "error" })
     }
@@ -90,23 +90,28 @@ export function AddRecipe() {
                 </Text>
                 <VStack align="stretch" gap={3}>
           {ingredients.map((ingredient, index) => (
-            <Box key={index} display="grid" gridTemplateColumns={{ base: "1fr", md: "1fr 160px" }} gap={3}>
+            <Box key={index} display="grid" gridTemplateColumns={{ base: "1fr", md: "1fr 240px" }} gap={3}>
               <IngredientsCombo
                 id={`ingredient-select-${index}`}
                 onChange={(value) => handleIngredientChange(index, value)}
               />
-              <Input
-                type="number"
-                min="0"
-                value={ingredient.quantity}
-                onChange={(event) => handleQuantityChange(index, event.target.value)}
-                placeholder="Cantidad"
-                required
-                color="gray.100"
-                borderColor="gray.700"
-                _placeholder={{ color: "gray.500" }}
-                _focusVisible={{ borderColor: "teal.400", boxShadow: "0 0 0 1px var(--chakra-colors-teal-400)" }}
-              />
+              <Box display="flex" alignItems="center" gap={2}>
+                <Input
+                  type="number"
+                  min="0"
+                  value={ingredient.quantity}
+                  onChange={(event) => handleQuantityChange(index, event.target.value)}
+                  placeholder="Cantidad"
+                  required
+                  color="gray.100"
+                  borderColor="gray.700"
+                  _placeholder={{ color: "gray.500" }}
+                  _focusVisible={{ borderColor: "teal.400", boxShadow: "0 0 0 1px var(--chakra-colors-teal-400)" }}
+                />
+                <Text color="gray.400" minW="3ch" whiteSpace="nowrap">
+                  {ingredient.unit}
+                </Text>
+              </Box>
             </Box>
           ))}
           <DuplicateButton text="Añadir ingrediente" onDuplicate={handleAddIngredient} />

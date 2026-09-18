@@ -58,7 +58,7 @@ export function IngredientsList() {
                 {ingredient.ing_name}
               </Text>
               <Text color="gray.400" mt={1}>
-                Cantidad: {ingredient.ire_quantity}
+                {ingredient.ire_quantity} {ingredient.ing_unit}
               </Text>
             </Box>
           ))}

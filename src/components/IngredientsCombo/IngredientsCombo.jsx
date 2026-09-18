@@ -30,13 +30,13 @@ export function IngredientsCombo({ id, onChange }) {
   function handleSearchChange(event) {
     setSearch(event.target.value);
     setSelectedIngredient(null);
-    onChange("");
+    onChange({ id: "", unit: "" });
   }
 
   function handleIngredientSelect(ingredient) {
     setSelectedIngredient(ingredient);
     setSearch(ingredient.ing_name);
-    onChange(String(ingredient.ing_id));
+    onChange({ id: String(ingredient.ing_id), unit: ingredient.ing_unit });
   }
 
   return (
