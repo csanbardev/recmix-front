@@ -4,12 +4,16 @@ import { useParams } from "react-router-dom"
 import { API_URL } from "../../config/api"
 import { useAlert } from "../../components/common/AlertContext/AlertContext.js"
 
+const euroFormatter = new Intl.NumberFormat("es-ES", {
+  style: "currency",
+  currency: "EUR",
+})
+
 export function IngredientsList() {
   const { reclFec } = useParams() // fecha de la lista de recetas
   const [data, setData] = useState(null)
   const { showAlert } = useAlert()
-
-  
+  const total = (data ?? []).reduce((sum, ingredient) => sum + (Number(ingredient.ing_value) || 0), 0)
 
   useEffect(() => {
     async function fetchData() {
@@ -35,6 +39,10 @@ export function IngredientsList() {
       <Container maxW="6xl" px={{ base: 5, md: 8 }}>
         <Heading size="xl" color="gray.100" mb={8}>Ingredientes de la lista</Heading>
 
+        <Text color="gray.100" fontSize="lg" fontWeight="semibold" mb={4}>
+          Total de la compra: {euroFormatter.format(total)}
+        </Text>
+
         <SimpleGrid
           as="ul"
           columns={{ base: 1, md: 2 }}
@@ -59,6 +67,9 @@ export function IngredientsList() {
               </Text>
               <Text color="gray.400" mt={1}>
                 {ingredient.ire_quantity} {ingredient.ing_unit}
+              </Text>
+              <Text color="gray.300" mt={1}>
+                {euroFormatter.format(Number(ingredient.ing_value) || 0)}
               </Text>
             </Box>
           ))}
