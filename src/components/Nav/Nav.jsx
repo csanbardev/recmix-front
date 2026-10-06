@@ -5,6 +5,7 @@ const navigationItems = [
   { label: "Inicio", path: "/", end: true },
   { label: "Lista", path: "/recipe-list" },
   { label: "Añadir receta", path: "/recipe/add" },
+  { label: "Editar ingrediente", path: "/ingredients/edit" },
 ];
 
 export function Nav() {

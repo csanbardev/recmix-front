@@ -5,6 +5,7 @@ import { IngredientsList } from './pages/IngredientsList/IngredientsList'
 import { RecipesList } from './pages/RecipesList/RecipesList'
 import { AddRecipeList } from './pages/RecipesList/AddRecipeList'
 import { AddRecipe } from './pages/Recipe/AddRecipe'
+import { UpdateIngredient } from './pages/Ingredients/Update/UpdateIngredient'
 import { Nav } from './components/Nav/Nav'
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/ingredients/edit" element={<UpdateIngredient />} />
         <Route path="/ingredients/:recId" element={<Ingredients />} />
         <Route path="/ingredients/list/:reclFec" element={<IngredientsList />} />
         <Route path="/recipe-list" element={<RecipesList />} />
