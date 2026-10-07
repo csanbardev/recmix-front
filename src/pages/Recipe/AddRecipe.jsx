@@ -99,6 +99,7 @@ export function AddRecipe() {
                 <Input
                   type="number"
                   min="0"
+                  step="0.01"
                   value={ingredient.quantity}
                   onChange={(event) => handleQuantityChange(index, event.target.value)}
                   placeholder="Cantidad"
